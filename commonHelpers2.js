@@ -1,62 +1,22 @@
-import"./assets/scroll-8076d2f7.js";import{n as M,a as m,P as H}from"./assets/vendor-ae726d3c.js";const b=document.querySelector(".quote__backend"),S=new Date().toLocaleDateString();async function D(){b.innerHTML=`
+import{c as g,a as R}from"./assets/scroll-54bd078a.js";import{i as c,a as y,P as D}from"./assets/vendor-ebe44317.js";const L=document.querySelector(".quote__backend"),$=new Date().toLocaleDateString();async function _(){L.innerHTML=`
         <span class="loader"></span>
-        <span>We're looking a quote for you...</span>
-    `;try{return(await m.get("https://energyflow.b.goit.study/api/quote")).data}catch{M.Notify.failure("Something went wrong, try again")}}function T(e,t){return`<p class="quote__backend-text">${t}</p>
-            <p class="quote__backend-author">${e}</p>`}function O(){if(localStorage.getItem("quote")&&localStorage.getItem("savedDate")===S){const{author:e,quote:t}=JSON.parse(localStorage.getItem("quote"));b.innerHTML=T(e,t)}else D().then(({author:e,quote:t})=>{const a={author:e,quote:t};localStorage.setItem("quote",JSON.stringify(a)),localStorage.setItem("savedDate",S),b.innerHTML=T(e,t)}).catch(e=>M.Notify.failure(e.message))}O();const R=document.getElementById("subscriptionForm"),k=document.getElementById("email"),_=new RegExp(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/);R.addEventListener("submit",async function(e){e.preventDefault();try{_.test(k.value)?await m.post("https://energyflow.b.goit.study/api/subscription",{email:k.value}).then(t=>{console.log(t.data.message)}).catch(t=>{console.log(t.response.data.message)}):alert("Please enter the correct email")}catch(t){console.error("Error:",t),alert("Something went wrong, try again")}});const P=document.getElementById("exercises-search-form"),L=P.querySelector(".exercises-search-input"),w=document.querySelector(".exercises-list"),E=document.querySelector(".exercises-inputclear-icon");P.addEventListener("submit",async e=>{e.preventDefault();const t=L.value.trim().toLowerCase();try{await j(t)}catch(a){console.error(a)}});L.addEventListener("input",N);function N(){L.value.trim()!==""?E.classList.remove("exercises-is-hidden"):E.classList.add("exercises-is-hidden")}function F(){const e=document.getElementById("exercises-search-input");e&&(e.value="")}E.addEventListener("click",F);async function U(e){try{return(await m.get(`https://energyflow.b.goit.study/api/exercises?bodypart=&muscles=abs&equipment=&keyword=${e}&page=1&limit=10`)).data}catch(t){throw console.error("Error fetching exercises:",t),t}}async function j(e){try{const t=await U(e);if(w.innerHTML="",t.results.length>0){const a=t.results.map(s=>`
-        <li class="exercises-item-page2">
-          <div class="exercises-card">
-            <div class="exercises-card-top">
-              <div class="exercises-kind-wrapper">
-                <p class="exercises-card-kind">WORKOUT</p>
-                <div class="exercises-card-rating">
-                  <p class="exercises-rating-value">${s.rating}</p>
-                  <svg class="exercises-star-icon" width="18" height="18" aria-label="star icon">
-                    <use href="./img/exercises/exercises-sprite.svg#icon-star"></use>
-                  </svg>
-                </div>
-              </div>
-              <button class="exercises-start-button">
-                Start
-                <svg class="exercises-start-icon" width="14" height="14">
-                  <use href="./img/exercises/exercises-sprite.svg#icon-arrow"></use>
-                </svg>
-              </button>
-            </div>
-            <div class="exercises-card-namewrapper">
-              <svg class="exercises-star-icon" width="24" height="24" aria-label="star icon">
-                <use href="./img/exercises/exercises-sprite.svg#icon-icon"></use>
-              </svg>
-              <p class="exercises-card-exname">${s.name}</p>
-            </div>
-            <ul class="exercises-card-info">
-              <li class="exercises-info-data">
-                <span class="exercises-data-name">Burned calories: </span>${s.calories} / ${s.duration} min
-              </li>
-              <li class="exercises-info-data">
-                <span class="exercises-data-name">Body part: </span>${s.bodyPart}
-              </li>
-              <li class="exercises-info-data">
-                <span class="exercises-data-name">Target: </span>${s.target}
-              </li>
-            </ul>
-          </div>
-        </li>
-      `).join("");w.innerHTML=a}else w.innerHTML='<p class="no-results-message">Unfortunately, <span class="error-message">no results</span> were found. You may want to consider other search options to find the exercise you are looking for. Our range is wide and you have the opportunity to find more options that suit your needs.</p>'}catch(t){console.error(t)}}function c(e){return e.charAt(0).toUpperCase()+e.slice(1)}function J(){document.querySelector(".exercises-list").addEventListener("click",async function(n){let r=n.target;if(r.classList.contains("exercises-start-button")||r.parentElement.classList.contains("exercises-start-button")){let o;r.parentElement.classList.contains("exercises-start-button")?o=r.parentElement.getAttribute("id"):o=r.getAttribute("id");async function g(){try{await m.get("https://energyflow.b.goit.study/api/exercises/"+o).then(({data:i})=>{document.getElementById("modalImage").src=i.gifUrl,document.getElementById("modalName").textContent=c(i.name),document.getElementById("modalRating").textContent=i.rating,document.getElementById("modalTarget").textContent=c(i.target),document.getElementById("bodyPart").textContent=c(i.bodyPart),document.getElementById("modalEquipment").textContent=c(i.equipment),document.getElementById("modalPopularity").textContent=i.popularity,document.getElementById("modalBurnedCalories").textContent=i.burnedCalories+" cal / "+i.time+" min",document.getElementById("modalDescription").textContent=i.description;var v=document.getElementById("pop-up-exercise");v.style.display="flex",document.querySelector(".add-to-favorites-btn").addEventListener("click",function(){const l=this.getAttribute("id"),p=fromAPI.find(d=>d._id===l);if(p){let d=JSON.parse(localStorage.getItem(KEY_FAVORITE))||[];d.some(A=>A._id===l)?console.log(`Упражнение с ID ${l} уже находится в избранном.`):(d.push(p),localStorage.setItem(KEY_FAVORITE,JSON.stringify(d)),console.log(`Упражнение с ID ${l} добавлено в избранное.`))}else console.log(`Упражнение с ID ${l} не найдено.`)})})}catch(i){console.error("Error:",i),alert("Something went wrong, try again")}}await g()}}),document.getElementById("closeBtn").addEventListener("click",function(){const n=document.getElementById("pop-up-exercise");n.style.display="none"});const a=3,s=document.querySelectorAll(".star");for(let n=0;n<a;n++)s[n].style.fill="yellow"}function $(e,t){const a=document.getElementById("tui-pagination-container"),s=t<5?t:5,n={totalItems:e*t,itemsPerPage:e,visiblePages:s,centerAlign:!0},r=new H(a,n);return s<=1?a.style.display="none":a.style.display="block",r}const u=document.querySelector(".exercises-list");let f="Muscles",x=1;const C=12;let y,I;async function h(e,t){let a=new URLSearchParams({filter:e,page:t,limit:C});try{await m.get(`https://energyflow.b.goit.study/api/filters?${a}`).then(s=>{let n=s.data.results;y=s.data.totalPages;const r=n.map(({name:o,filter:g,imgUrl:i})=>`<li class="exercises-list-item" data-name="${o}" data-filter="${g}">
+    `;try{return(await y.get("https://energyflow.b.goit.study/api/quote")).data}catch{c.error({title:"Error",message:"Something went wrong, try again"})}}function M(e,t){return`<p class="quote__backend-text">${t}</p>
+            <p class="quote__backend-author">${e}</p>`}function j(){if(localStorage.getItem("quote")&&localStorage.getItem("savedDate")===$){const{author:e,quote:t}=JSON.parse(localStorage.getItem("quote"));L.innerHTML=M(e,t)}else _().then(({author:e,quote:t})=>{const s={author:e,quote:t};localStorage.setItem("quote",JSON.stringify(s)),localStorage.setItem("savedDate",$),L.innerHTML=M(e,t)}).catch(e=>c.error({title:"Error",message:e.message}))}j();const z=document.getElementById("subscriptionForm"),S=document.getElementById("email"),O=new RegExp(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/);z.addEventListener("submit",async function(e){e.preventDefault();try{O.test(S.value)?await y.post("https://energyflow.b.goit.study/api/subscription",{email:S.value}).then(t=>c.success({title:"Success",message:t.data.message})).catch(t=>c.error({title:"Error",message:t.response.data.message})):c.error({title:"Error",message:"Please enter the correct email!"})}catch{c.error({title:"Error",message:"Something went wrong, try again"})}});const b="/project-radioactive/assets/exercises-sprite-d4ab7b8a.svg";function v(e,t){const s=document.getElementById("tui-pagination-container"),a=t<3?t:3,i={totalItems:e*t,itemsPerPage:e,visiblePages:a,centerAlign:!0},n=new D(s,i);return a<=1?s.style.display="none":s.style.display="block",n}const o=document.querySelector(".exercises-list");let m="Muscles",u=1;const F=12,Q=9;let E,p;const h=document.getElementById("exercises-search-form"),l=document.querySelector(".exircises-category"),T=document.querySelector(".exercises-title"),P=h.querySelector(".exercises-search-input");async function f(e,t){let s=new URLSearchParams({filter:e,page:t,limit:F});try{await y.get(`https://energyflow.b.goit.study/api/filters?${s}`).then(a=>{let i=a.data.results;E=a.data.totalPages;const n=i.map(({name:r,filter:d,imgUrl:w})=>`<li class="exercises-list-item" data-name="${r}" data-filter="${d}">
             <div class="exercises-item"
             style="background:
             linear-gradient(0deg,rgba(16, 16, 16, 0.7) 0%, rgba(16, 16, 16, 0.7) 100%),
-            url(${i}),lightgray -16.825px -9.156px / 128.765% 116.922% no-repeat; 
+            url(${w}),lightgray -16.825px -9.156px / 128.765% 116.922% no-repeat; 
             background-size: cover;">
-            <p class="exercises-item-name">${c(o)}</p>
-            <p class="exercises-item-subname">${g}</p>
+            <p class="exercises-item-name">${g(r)}</p>
+            <p class="exercises-item-subname">${d}</p>
             </div>
-          </li>`).join("");u.insertAdjacentHTML("beforeend",r),K()}).catch(s=>{console.log(s.response.data.message)})}catch(s){console.error("Error:",s),alert("Something went wrong, try again")}}await h(f,x);$(12,y).on("afterMove",({page:e})=>{u.innerHTML="",h(f,e)});function K(){let e=x;const t=document.querySelectorAll(".exercises-list-item");for(const a of t)a.addEventListener("click",async function(s){const n=s.currentTarget.dataset.name,r=s.currentTarget.dataset.filter;await q({filter:r,name:n,page:e}),$(10,I).on("afterMove",async({page:o})=>{u.innerHTML="",await q({filter:r,name:n,page:o})})})}const V=document.querySelectorAll(".exercises-filter-button");for(const e of V)e.classList.remove("foo"),e.addEventListener("click",async function(t){const a=t.currentTarget.dataset.name;t.currentTarget.classList.add("foo"),console.dir(t.currentTarget.classList),f=a,console.log("Clicked the button: ",a),u.innerHTML="",await h(a,x),$(12,y).on("afterMove",({page:s})=>{console.log("Moved",s),console.log("Total Pages Pressed",y),u.innerHTML="",h(f,s)}),console.log(a,x)});async function q({filter:e,name:t,page:a}){const n={"Body parts":"bodypart",Muscles:"muscles",Equipment:"equipment"}[e];await m.get(`https://energyflow.b.goit.study/api/exercises?${n}=${t.toLowerCase()}&page=${a}&limit${C}`).then(r=>{let o=r.data.results;I=r.data.totalPages,console.log("totalPagesforCards",I,"musclesResult:",r.data);const g=o.map(({bodyPart:i,burnedCalories:v,name:B,_id:l,target:p,rating:d})=>`<li class="exercises-item-page2">
+          </li>`).join("");o.insertAdjacentHTML("beforeend",n),J()}).catch(a=>{console.log(a.response.data.message)})}catch{c.error({title:"Error",message:"Something went wrong, try again"})}}await f(m,u);v(12,E).on("afterMove",({page:e})=>{o.innerHTML="",f(m,e)});function J(){let e=u;const t=document.querySelectorAll(".exercises-list-item");for(const s of t){s.addEventListener("click",a);async function a(i){const n=i.currentTarget.dataset.name,r=i.currentTarget.dataset.filter;h.classList.remove("input-hidden"),await x({filter:r,name:n,page:e}),v(9,p).on("afterMove",async({page:d})=>{o.innerHTML="",await x({filter:r,name:n,page:d})}),s.removeEventListener("click",a)}}}const k=document.querySelectorAll(".exercises-filter-button");for(const e of k)e.addEventListener("click",async function(t){h.classList.add("input-hidden");const s=t.currentTarget.dataset.name;for(const a of k)a.classList.remove("active-btn");t.target.classList.add("active-btn"),m=s,console.log("Clicked the button: ",s),o.innerHTML="",l.dataset.name="",l.textContent="",T.textContent="Exercises",await f(s,u),v(12,E).on("afterMove",({page:a})=>{o.innerHTML="",f(m,a)}),console.log(s,u)});async function x({filter:e,name:t,page:s,keyword:a=""}){const n={"Body parts":"bodypart",Muscles:"muscles",Equipment:"equipment"}[e];await y.get(`https://energyflow.b.goit.study/api/exercises?${n}=${t.toLowerCase()}&keyword=${a}&page=${s}&limit=${Q}`).then(r=>{let d=r.data.results;p=r.data.totalPages,console.log("totalPagesforCards",p,"musclesResult:",r.data),l.dataset.name=t,l.dataset.filter=e,l.textContent=g(t),T.textContent="Exercises /";const w=d.map(({bodyPart:q,burnedCalories:C,name:H,_id:I,target:A,rating:B})=>`<li class="exercises-item-page2">
             <div class="exercises-card">
               <div class="exercises-card-top">
                 <div class="exercises-kind-wrapper">
                   <p class="exercises-card-kind">WORKOUT</p>
                   <div class="exercises-card-rating">
-                    <p class="exercises-rating-value">${d}</p>
+                    <p class="exercises-rating-value">${B.toFixed(1)}</p>
                     <svg
                       class="exercises-star-icon"
                       width="18"
@@ -64,16 +24,16 @@ import"./assets/scroll-8076d2f7.js";import{n as M,a as m,P as H}from"./assets/ve
                       aria-label="star icon"
                     >
                       <use
-                        href="./img/exercises/exercises-sprite.svg#icon-star"
+                        href="${b}#icon-star"
                       ></use>
                     </svg>
                   </div>
                 </div>
-                <button class="exercises-start-button" id=${l}>
+                <button class="exercises-start-button" id=${I}>
                   Start
                   <svg class="exercises-start-icon" width="14" height="14">
                     <use
-                      href="./img/exercises/exercises-sprite.svg#icon-arrow"
+                      href="${b}#icon-arrow"
                     ></use>
                   </svg>
                 </button>
@@ -86,22 +46,22 @@ import"./assets/scroll-8076d2f7.js";import{n as M,a as m,P as H}from"./assets/ve
                   aria-label="star icon"
                 >
                   <use
-                    href="./img/exercises/exercises-sprite.svg#icon-icon"
+                    href="${b}#icon-icon"
                   ></use>
                 </svg>
-                <p class="exercises-card-exname">${c(B)}</p>
+                <p class="exercises-card-exname">${g(H)}</p>
               </div>
               <ul class="exercises-card-info">
                 <li class="exercises-info-data">
-                  <span class="exercises-data-name">Burned calories: </span>${v}
+                  <span class="exercises-data-name">Burned calories: </span>${C}
                 </li>
                 <li class="exercises-info-data">
-                  <span class="exercises-data-name">Body part: </span>${c(i)}
+                  <span class="exercises-data-name">Body part: </span>${g(q)}
                 </li>
                 <li class="exercises-info-data">
-                  <span class="exercises-data-name">Target: </span>${c(p)}
+                  <span class="exercises-data-name">Target: </span>${g(A)}
                 </li>
               </ul>
             </div>
-          </li> `).join("");u.innerHTML="",u.insertAdjacentHTML("beforeend",g),J()}).catch(r=>{console.log(r.response.data.message)})}
+          </li> `).join("");o.innerHTML="",o.insertAdjacentHTML("beforeend",w),R("Add")}).catch(r=>{c.error({title:"Error",message:r.response.data.message})})}h.addEventListener("submit",async e=>{e.preventDefault();let t=u,s=l.dataset.filter,a=l.dataset.name,i=P.value.trim().toLowerCase();console.log("Text Content",P.value.trim().toLowerCase()),await x({filter:s,name:a,page:t,keyword:i}),v(9,p).on("afterMove",async({page:n})=>{o.innerHTML="",await x({filter:s,name:a,page:n,keyword:i})})});
 //# sourceMappingURL=commonHelpers2.js.map
